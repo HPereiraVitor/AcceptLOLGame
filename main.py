@@ -8,7 +8,8 @@ while True:
         print('BUTTON FOUND...')
 
         # Obtenha as coordenadas do centro do botão
-        button_x, button_y, button_width, button_height = pyautogui.center(button_location)
+        buttonPoint = pyautogui.center(button_location)
+        button_x, button_y = buttonPoint
 
         # Mova o cursor do mouse para o centro do botão
         pyautogui.moveTo(button_x, button_y)
