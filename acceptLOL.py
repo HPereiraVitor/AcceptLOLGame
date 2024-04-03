@@ -5,11 +5,15 @@ import pyscreeze
 
 # Global Definition
 pyscreeze.USE_IMAGE_NOT_FOUND_EXCEPTION = False
-# Arguments
-parser = argparse.ArgumentParser(epilog='Example of script call: acceptLOL.py -c Annie -b Kassadin')
-namedArgs = parser.add_argument_group('Arguments')
-namedArgs.add_argument( "--champion", "-c", default="Master Yi", help="Provide the champion that you want to play.",)
-namedArgs.add_argument( "--ban", "-b", help="Provide the champion that you want to ban.")
+# Mandatory Arguments
+parser = argparse.ArgumentParser(epilog='Example of script call: acceptLOL.py -c Annie -ec Ekko -b Kassadin -eb Yasuo')
+requiredNamedArgs = parser.add_argument_group('Mandatory Arguments')
+requiredNamedArgs.add_argument( "--champion", "-c", help="Provide the champion that you wanna to play.",)
+requiredNamedArgs.add_argument( "--ban", "-b", default="Zed", help="Provide the champion that you want to ban.")
+# Optional Arguments
+OptionalNamedArgs = parser.add_argument_group('Optional Arguments')
+OptionalNamedArgs.add_argument( "--extrachoice", "-ec", help="Provide an seccond champion that you wanna play.",)
+OptionalNamedArgs.add_argument( "--extraban", "-eb", default="Master Yi", help="Provide an seccond champion you want to ban.")
 
 args = parser.parse_args()
 
