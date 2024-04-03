@@ -36,12 +36,30 @@ def searchingAcceptButton():
             break
 
 def selectChampion():
-    print ('Selecting your champion...')
-
     while True:
-        button_location = pyscreeze.locateOnScreen('./image/ban_session.png')
+        choose_session = pyscreeze.locateOnScreen('./image/choose_session.png')
 
-        if button_location is not None:
+        if choose_session is not None:
+            print('Selecting %s...'%args.champion )
+
+            write_location = pyscreeze.locateOnScreen('./image/write.png')
+            writePoint = pyautogui.center(write_location)
+            write_x, write_y = writePoint
+
+            choose_button = pyscreeze.locateOnScreen('./image/choose_button.png')
+            choosePoint = pyautogui.center(choose_button)
+            choose_x, choose_y = choosePoint
+
+            pyautogui.moveTo(write_x, write_y)
+            pyautogui.click()
+
+            pyautogui.write(args.champion)
+
+            # TO DO: CLICK ON THE CHAMPION
+
+            pyautogui.moveTo(choose_x, choose_y)
+            pyautogui.click()
+
             break
 
 def banChampion():
@@ -69,8 +87,11 @@ def banChampion():
             pyautogui.moveTo(ban_x, ban_y)
             pyautogui.click()
 
+            break
+
 if __name__ == '__main__':
-    print("TESTE")
+    print("acceptLOL.py is running")
     searchingAcceptButton()
     banChampion()
     selectChampion()
+    print("Enjoy your game!")
