@@ -2,20 +2,18 @@ import argparse
 import sys
 import pyautogui
 import pyscreeze
+import time
 
 # Global Definition
 pyscreeze.USE_IMAGE_NOT_FOUND_EXCEPTION = False
 random_x = None
 random_y = None
 
-# Mandatory Arguments
+# Arguments
 parser = argparse.ArgumentParser(epilog='Example of script call: acceptLOL.py -c Annie -ec Ekko -b Kassadin -eb Yasuo')
-requiredNamedArgs = parser.add_argument_group('Mandatory Arguments')
-requiredNamedArgs.add_argument( "--champion", "-c", help="Provide the champion that you wanna to play.",)
-requiredNamedArgs.add_argument( "--ban", "-b", default="Zed", help="Provide the champion that you want to ban.")
-
-# Optional Arguments
-OptionalNamedArgs = parser.add_argument_group('Optional Arguments')
+OptionalNamedArgs = parser.add_argument_group('Arguments')
+OptionalNamedArgs.add_argument( "--champion", "-c", help="Provide the champion that you wanna to play.",)
+OptionalNamedArgs.add_argument( "--ban", "-b", default="Zed", help="Provide the champion that you want to ban.")
 OptionalNamedArgs.add_argument( "--extrachoice", "-ec", help="Provide an seccond champion that you wanna play.",)
 OptionalNamedArgs.add_argument( "--extraban", "-eb", default="Master Yi", help="Provide an seccond champion you want to ban.")
 
@@ -54,17 +52,15 @@ def selectChampion():
             pyautogui.click()
             pyautogui.write(args.champion)
 
-            print(random_x)
-            print(random_y)
             pyautogui.moveTo(random_x, random_y)
             pyautogui.click()
 
+            time.sleep(1)
+
             confirm_button = pyscreeze.locateOnScreen('./image/confirm_button.png')
-            print(confirm_button)
+
             confirmPoint = pyautogui.center(confirm_button)
             confirm_x, confirm_y = confirmPoint
-            print(confirm_x)
-            print(confirm_y)
 
             pyautogui.moveTo(confirm_x, confirm_y)
             pyautogui.click()
@@ -89,6 +85,8 @@ def banChampion():
             pyautogui.moveTo(random_x, random_y)
             pyautogui.click()
 
+            time.sleep(1)
+
             ban_button = pyscreeze.locateOnScreen('./image/ban_button.png')
             banPoint = pyautogui.center(ban_button)
             ban_x, ban_y = banPoint
@@ -110,7 +108,5 @@ if __name__ == '__main__':
     searchingAcceptButton()
     random_x, random_y = randomChamionPosition()
     banChampion()
-    print(random_x)
-    print(random_y)
     selectChampion()
     print("Enjoy your game!")
